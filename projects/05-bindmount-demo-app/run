@@ -1,0 +1,2 @@
+docker image pull jekyll/minimal
+docker container run --name jekyll -p 80:4000 -v $(pwd):/srv/jekyll -d jekyll/minimal jekyll serve

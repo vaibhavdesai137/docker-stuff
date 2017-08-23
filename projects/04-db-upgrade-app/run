@@ -1,0 +1,4 @@
+docker image pull postgres:9.6.1
+docker image pull postgres:9.6.2
+docker container run -d --name postgres1 -d -v postgres-data:/var/lib/postgresql/data postgres:9.6.1
+docker container run -d --name postgres2 -d -v postgres-data:/var/lib/postgresql/data postgres:9.6.2
