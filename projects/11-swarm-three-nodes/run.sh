@@ -12,7 +12,7 @@
 # ssh-add ~/.ssh/id_rsa_digitalocean
 
 # use csshX to login on all
-# ./csshX --ssh_args "-i ~/.ssh/id_rsa_digitalocean" --login root 138.68.246.21 138.68.57.141 138.197.192.14 
+# ./csshX --ssh_args "-i /Users/vaidesai/.ssh/id_rsa_digitalocean" --login root 138.68.246.21 138.68.57.141 138.197.192.14 
 
 # install docker on all
 # curl -fsSL get.docker.com -o get-docker.sh
@@ -20,7 +20,7 @@
 
 # init docker swarm on node1 (needs ip address)
 # node1 becomes leader (and manager) by default since we ran init here first
-# docker swarm init --adverise-addr 138.68.246.21
+# docker swarm init --advertise-addr 138.68.246.21
 
 # add other two nodes to the swarm as workers
 # docker swarm join --token SWMTKN-1-42wzgxfp89rt08q2pojtz6yn1cbzzoptdq10yfzjwkfwlq3gmy-3c1x8eocg3eow7eudzhmojde7 138.68.246.21:2377
