@@ -1,0 +1,17 @@
+version: "3.1"
+services:
+
+  postgres:
+    image: postgres
+    secrets:
+      - postgres_user
+      - postgres_password
+    environment:
+        POSTGRES_USER_FILE: /run/secrets/postgres_user
+        POSTGRES_PASSWORD_FILE: /run/secrets/postgres_password
+
+secrets:
+  postgres_user:
+    file: ./postgres_user.txt
+  postgres_password:
+    file: ./postgres_password.txt
