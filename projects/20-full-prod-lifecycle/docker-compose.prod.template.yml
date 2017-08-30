@@ -1,0 +1,46 @@
+
+version: '3.1'
+
+services:
+
+    drupal:
+      image: custom-drupal
+      ports:
+          - '80:80'
+      volumes:
+          - drupal-modules:/var/www/html/modules
+          - drupal-profiles:/var/www/html/profiles
+          - drupal-sites:/var/www/html/sites
+          - drupal-themes:/var/www/html/themes
+      deploy:
+        replicas: 3
+
+    postgres:
+        image: postgres:9.6
+        environment:
+            - POSTGRES_DB_FILE=/run/secrets/postgres_db
+            - POSTGRES_USER_FILE=/run/secrets/postgres_user
+            - POSTGRES_PASSWORD_FILE=/run/secrets/postgres_password
+        secrets:
+            - postgres_db
+            - postgres_user
+            - postgres_password
+        volumes:
+            - drupal-data:/var/lib/postgresql/data
+        deploy:
+            replicas: 3
+
+volumes:
+    drupal-modules:
+    drupal-profiles:
+    drupal-sites:
+    drupal-themes:
+    drupal-data:
+
+secrets:
+  postgres_db:
+    external: true
+  postgres_user:
+    external: true
+  postgres_password:
+    external: true

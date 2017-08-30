@@ -1,0 +1,43 @@
+secrets:
+  postgres_db:
+    external: true
+  postgres_password:
+    external: true
+  postgres_user:
+    external: true
+services:
+  drupal:
+    build:
+      context: /Users/vaidesai/Development/git/vaibhavdesai137/docker-stuff/projects/20-full-prod-lifecycle
+    deploy:
+      replicas: 3
+    image: custom-drupal
+    ports:
+    - 80:80/tcp
+    volumes:
+    - drupal-modules:/var/www/html/modules:rw
+    - drupal-profiles:/var/www/html/profiles:rw
+    - drupal-sites:/var/www/html/sites:rw
+    - drupal-themes:/var/www/html/themes:rw
+  postgres:
+    deploy:
+      replicas: 3
+    environment:
+      POSTGRES_DB_FILE: /run/secrets/postgres_db
+      POSTGRES_PASSWORD_FILE: /run/secrets/postgres_password
+      POSTGRES_USER_FILE: /run/secrets/postgres_user
+    image: postgres:9.6
+    secrets:
+    - source: postgres_db
+    - source: postgres_password
+    - source: postgres_user
+    volumes:
+    - drupal-data:/var/lib/postgresql/data:rw
+version: '3.1'
+volumes:
+  drupal-data: {}
+  drupal-modules: {}
+  drupal-profiles: {}
+  drupal-sites: {}
+  drupal-themes: {}
+

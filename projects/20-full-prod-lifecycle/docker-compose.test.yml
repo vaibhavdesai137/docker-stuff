@@ -1,0 +1,30 @@
+
+version: '3.1'
+
+services:
+
+  drupal:
+    image: custom-drupal
+    build: .
+    ports:
+      - "80:80"
+
+  postgres:
+    environment:
+        - POSTGRES_DB_FILE=/run/secrets/postgres_db
+        - POSTGRES_USER_FILE=/run/secrets/postgres_user
+        - POSTGRES_PASSWORD_FILE=/run/secrets/postgres_password
+    secrets:
+        - postgres_db
+        - postgres_user
+        - postgres_password
+    volumes:
+      - ./sample-data:/var/lib/postgresql/data
+
+secrets:
+  postgres_db:
+    file: postgres_db.txt
+  postgres_user:
+    file: postgres_user.txt
+  postgres_password:
+    file: postgres_password.txt
